@@ -22,7 +22,7 @@ jobs:
          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
      - name: Generate timestamp tag
-       run: echo "VERSION=$(date + '%Y-%m-%d-%H%M%S')" >> GITHUB_ENV
+       run: echo "VERSION=$(date +'%Y-%m-%d-%H%M%S')" >> $GITHUB_ENV
      # version= 2026-02-04-1450
      # image name: your image: 2026-02-04-091
      - name: Build and push image
