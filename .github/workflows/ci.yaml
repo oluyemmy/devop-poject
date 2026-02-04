@@ -26,7 +26,7 @@ jobs:
      # version= 2026-02-04-1450
      # image name: your image: 2026-02-04-091
      - name: Build and push image
-       run: 
+       run: |
          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ env.VERSION }} .
          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ env.VERSION }}
      
