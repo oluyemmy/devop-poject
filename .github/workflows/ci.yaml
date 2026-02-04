@@ -1,0 +1,33 @@
+
+name: Build & Push Docker Image
+
+on:
+ push:
+  branches: [ main ]
+
+jobs:
+ build-and-push:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v4
+     # git clone 
+     # cd into repo
+
+     - name: login to docker Hub
+       uses: docker/login-action@v3
+       with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+     - name: Generate timestamp tag
+       run: echo "VERSION=$(date + '%Y-%m-%d-%H%M%S')" >> GITHUB_ENV
+     # version= 2026-02-04-1450
+     # image name: your image: 2026-02-04-091
+     - name: Build and push image
+       run: 
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ env.VERSION }} .
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ env.VERSION }}
+     
+     
